@@ -29,4 +29,10 @@
     </exec>
   </target>
 
+  <target name="compat" description="checks compatibility with PHP_CompatInfo">
+    <exec executable="phpcompatinfo" passthru="true" checkreturn="true">
+      <arg line="--ansi analyser:run classes"/>
+    </exec>
+  </target>
+
 </project>
