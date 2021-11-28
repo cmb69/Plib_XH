@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Plib" default="help">
+
+  <target name="help" description="lists available targets">
+    <exec executable="phing" outputProperty="help">
+      <arg value="-l"/>
+    </exec>
+    <echo>${help}</echo>
+  </target>
+
+  <target name="sniff" description="checks adherence to the coding standards">
+    <exec executable="phpcs" passthru="true" checkreturn="true">
+      <arg value="--standard=PSR2"/>
+      <arg line="--runtime-set ignore_warnings_on_exit true"/>
+      <arg file="classes"/>
+    </exec>
+  </target>
+
+  <target name="stan" description="run static analysis">
+    <exec executable="phpstan" passthru="true" checkreturn="true">
+      <arg line="--ansi analyze classes"/>
+    </exec>
+  </target>
+
+  <target name="mess" description="detects code flaws">
+    <exec executable="phpmd" passthru="true">
+      <arg line="classes ansi codesize,unusedcode"/>
+    </exec>
+  </target>
+
+</project>
