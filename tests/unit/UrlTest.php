@@ -25,14 +25,14 @@ use PHPUnit\Framework\TestCase;
 
 final class UrlTest extends TestCase
 {
-    public function testAbsolute()
+    public function testAbsolute(): void
     {
         $url = new Url("http://example.com/", "", "");
         $url = $url->lang("de")->page("foo")->with("bar", "baz");
         $this->assertSame("http://example.com/de/?foo&bar=baz", $url->absolute());
     }
 
-    public function testRelative()
+    public function testRelative(): void
     {
         $url = new Url("http://example.com/", "", "");
         $url = $url->lang("de")->page("foo")->with("bar", "baz");
