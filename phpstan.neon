@@ -2,5 +2,7 @@ parameters:
   level: 9
   paths:
     - classes/
+  bootstrapFiles:
+    - phpstan.php
   scanFiles:
     - ../../cmsimple/functions.php
