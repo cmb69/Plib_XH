@@ -52,11 +52,11 @@ class Response
     /** @return string|never */
     public function __invoke()
     {
-        global $title;
+        global $sn, $title;
 
         if ($this->cookie() !== null) {
             [$name, $value, $expires] = $this->cookie();
-            setcookie($name, $value, $expires, CMSIMPLE_ROOT);
+            setcookie($name, $value, $expires, $sn);
         }
         if ($this->location() !== null) {
             while (ob_get_level()) {
