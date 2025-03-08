@@ -30,6 +30,12 @@ class SystemCheckerTest extends TestCase
         ];
     }
 
+    public function testCheckExtension(): void
+    {
+        $this->assertTrue($this->sut->checkExtension("standard"));
+        $this->assertFalse($this->sut->checkExtension("not existing extension"));
+    }
+
     public function testCheckWritability(): void
     {
         $this->assertTrue($this->sut->checkWritability(vfsStream::url("root")));

@@ -31,6 +31,21 @@ class SystemChecker
         return version_compare($actual, $minimum) >= 0;
     }
 
+    public function checkExtension(string $extension): bool
+    {
+        return extension_loaded($extension);
+    }
+
+    public function checkGdFreetype(): bool
+    {
+        return function_exists("gd_info") && gd_info()['FreeType Support'];
+    }
+
+    public function checkGdPng(): bool
+    {
+        return function_exists("imagetypes") && (imagetypes() & IMG_PNG);
+    }
+
     public function checkWritability(string $path): bool
     {
         return is_writable($path);
