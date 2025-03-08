@@ -45,7 +45,7 @@ class Request
         if (!isset($_GET[$key]) || !is_string($_GET[$key])) {
             return null;
         }
-        return $_GET[$key];
+        return trim($_GET[$key]);
     }
 
     public function cookie(string $key): ?string
@@ -53,7 +53,7 @@ class Request
         if (!isset($_COOKIE[$key]) || !is_string($_COOKIE[$key])) {
             return null;
         }
-        return $_COOKIE[$key];
+        return trim($_COOKIE[$key]);
     }
 
     public function post(string $key): ?string
@@ -61,7 +61,7 @@ class Request
         if (!isset($_POST[$key]) || !is_string($_POST[$key])) {
             return null;
         }
-        return $_POST[$key];
+        return trim($_POST[$key]);
     }
 
     public function time(): int
