@@ -27,8 +27,8 @@ final class UrlTest extends TestCase
 {
     public function testAbsolute(): void
     {
-        $url = new Url("http://example.com/", "", []);
-        $url = $url->page("foo")->with("bar", "baz");
+        $url = new Url("http://example.com/", "", ["a" => "b"]);
+        $url = $url->page("foo")->without("a")->with("bar", "baz");
         $this->assertSame("http://example.com/?foo&bar=baz", $url->absolute());
     }
 

@@ -65,6 +65,13 @@ final class Url
         return $url;
     }
 
+    public function without(string $name): self
+    {
+        $url = clone $this;
+        unset($url->params[$name]);
+        return $url;
+    }
+
     public function absolute(): string
     {
         return $this->base . $this->suffix();
