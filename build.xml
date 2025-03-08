@@ -14,7 +14,7 @@
       <arg value="--standard=PSR12"/>
       <arg line="--runtime-set ignore_warnings_on_exit true"/>
       <arg file="classes"/>
-      <arg file="tests/unit"/>
+      <arg file="tests"/>
     </exec>
   </target>
 
@@ -24,13 +24,13 @@
     </exec>
   </target>
 
-  <target name="unit-tests" description="runs all unit tests">
+  <target name="test" description="runs all tests">
     <exec executable="phpunit" passthru="true" checkreturn="true"/>
   </target>
 
   <target name="coverage" description="generates coverage report">
     <exec executable="phpunit" passthru="true" checkreturn="true">
-      <arg line="--coverage-html tests/coverage"/>
+      <arg line="--coverage-html coverage"/>
     </exec>
   </target>
 
