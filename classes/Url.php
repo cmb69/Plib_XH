@@ -39,14 +39,16 @@ final class Url
     /** @var string */
     private $page;
 
-    /** @var array<string,string> */
-    private $params = [];
+    /** @var array<string,mixed> */
+    private $params;
 
-    public function __construct(string $base, string $page)
+    /** @param array<string,mixed> $params */
+    public function __construct(string $base, string $page, array $params)
     {
         assert((bool) preg_match('/^http[s]?:\/\/.*\/$/', $base));
         $this->base = $base;
         $this->page = $page;
+        $this->params = $params;
     }
 
     public function page(string $page): self
