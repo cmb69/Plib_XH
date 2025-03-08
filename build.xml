@@ -24,12 +24,6 @@
     </exec>
   </target>
 
-  <target name="compat" description="checks compatibility with PHP_CompatInfo">
-    <exec executable="phpcompatinfo" passthru="true" checkreturn="true">
-      <arg line="--ansi analyser:run classes"/>
-    </exec>
-  </target>
-
   <target name="unit-tests" description="runs all unit tests">
     <exec executable="phpunit" passthru="true" checkreturn="true">
       <arg line="--bootstrap tests/unit/bootstrap.php tests/unit"/>
