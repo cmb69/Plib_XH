@@ -28,8 +28,10 @@ class Request
 
     public static function current(): self
     {
+        global $su;
+
         $that = new self();
-        $that->url = new Url(CMSIMPLE_URL, "", []);
+        $that->url = new Url(CMSIMPLE_URL, $su, $su ? array_slice($_GET, 1) : $_GET);
         return $that;
     }
 

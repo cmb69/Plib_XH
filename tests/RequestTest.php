@@ -6,6 +6,13 @@ use PHPUnit\Framework\TestCase;
 
 class RequestTest extends TestCase
 {
+    public function setUp(): void
+    {
+        global $su;
+
+        $su = "";
+    }
+
     public function testUrl(): void
     {
         $this->assertEquals("http://example.com/", Request::current()->url()->absolute());
