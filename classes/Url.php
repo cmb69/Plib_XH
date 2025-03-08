@@ -37,27 +37,16 @@ final class Url
     private $base;
 
     /** @var string */
-    private $lang;
-
-    /** @var string */
     private $page;
 
     /** @var array<string,string> */
     private $params = [];
 
-    public function __construct(string $base, string $lang, string $page)
+    public function __construct(string $base, string $page)
     {
         assert((bool) preg_match('/^http[s]?:\/\/.*\/$/', $base));
         $this->base = $base;
-        $this->lang = $lang;
         $this->page = $page;
-    }
-
-    public function lang(string $lang): self
-    {
-        $url = clone $this;
-        $url->lang = $lang;
-        return $url;
     }
 
     public function page(string $page): self
@@ -88,15 +77,11 @@ final class Url
 
     private function suffix(): string
     {
-        $suffix = "";
-        if ($this->lang !== "") {
-            $suffix .= $this->lang . "/";
-        }
         $query = $this->query();
         if ($query !== "") {
-            $suffix .= "?" . $query;
+            return "?" . $query;
         }
-        return $suffix;
+        return "";
     }
 
     private function query(): string

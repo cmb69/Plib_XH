@@ -27,15 +27,15 @@ final class UrlTest extends TestCase
 {
     public function testAbsolute(): void
     {
-        $url = new Url("http://example.com/", "", "");
-        $url = $url->lang("de")->page("foo")->with("bar", "baz");
-        $this->assertSame("http://example.com/de/?foo&bar=baz", $url->absolute());
+        $url = new Url("http://example.com/", "");
+        $url = $url->page("foo")->with("bar", "baz");
+        $this->assertSame("http://example.com/?foo&bar=baz", $url->absolute());
     }
 
     public function testRelative(): void
     {
-        $url = new Url("http://example.com/", "", "");
-        $url = $url->lang("de")->page("foo")->with("bar", "baz");
-        $this->assertSame("/de/?foo&bar=baz", $url->relative());
+        $url = new Url("http://example.com/", "");
+        $url = $url->page("foo")->with("bar", "baz");
+        $this->assertSame("/?foo&bar=baz", $url->relative());
     }
 }
