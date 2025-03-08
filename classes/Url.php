@@ -21,15 +21,15 @@
 
 namespace Plib;
 
-use const PHP_QUERY_RFC3986;
-use const PHP_URL_PATH;
-
 use function count;
 use function http_build_query;
 use function is_string;
 use function parse_url;
 use function preg_match;
 use function preg_replace;
+
+use const PHP_QUERY_RFC3986;
+use const PHP_URL_PATH;
 
 final class Url
 {
