@@ -77,4 +77,11 @@ class Request
     {
         return defined("XH_ADM") && XH_ADM;
     }
+
+    public function language(): string
+    {
+        global $sl;
+
+        return $sl;
+    }
 }

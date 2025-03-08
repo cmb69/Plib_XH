@@ -79,4 +79,12 @@ class RequestTest extends TestCase
     {
         $this->assertFalse(Request::current()->admin());
     }
+
+    public function testLanguage(): void
+    {
+        global $sl;
+
+        $sl = "de";
+        $this->assertEquals("de", Request::current()->language());
+    }
 }
