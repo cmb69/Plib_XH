@@ -35,6 +35,10 @@ class Request
         return $that;
     }
 
+    private function __construct()
+    {
+    }
+
     public function url(): Url
     {
         return $this->url;

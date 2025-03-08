@@ -49,6 +49,10 @@ class Response
         return $that;
     }
 
+    private function __construct()
+    {
+    }
+
     /** @return string|never */
     public function __invoke()
     {
