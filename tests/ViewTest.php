@@ -33,6 +33,13 @@ class ViewTest extends TestCase
         $this->assertSame("this &amp; that &lt;p&gt;world&lt;/p&gt;", $actual);
     }
 
+    public function testPlain(): void
+    {
+        $subject = new View("", ["text" => "%s %s"]);
+        $actual = $subject->plain("text", "this & that", "<p>world</p>");
+        $this->assertSame("this & that <p>world</p>", $actual);
+    }
+
     public function testRender(): void
     {
         vfsStream::setup("templates");
