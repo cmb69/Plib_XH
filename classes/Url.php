@@ -45,7 +45,6 @@ final class Url
     /** @param array<string,mixed> $params */
     public function __construct(string $base, string $page, array $params)
     {
-        assert((bool) preg_match('/^http[s]?:\/\/.*\/$/', $base));
         $this->base = $base;
         $this->page = $page;
         $this->params = $params;
