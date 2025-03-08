@@ -25,14 +25,12 @@
   </target>
 
   <target name="unit-tests" description="runs all unit tests">
-    <exec executable="phpunit" passthru="true" checkreturn="true">
-      <arg line="--bootstrap tests/unit/bootstrap.php tests/unit"/>
-    </exec>
+    <exec executable="phpunit" passthru="true" checkreturn="true"/>
   </target>
 
   <target name="coverage" description="generates coverage report">
     <exec executable="phpunit" passthru="true" checkreturn="true">
-      <arg line="--coverage-html tests/coverage --whitelist classes --bootstrap tests/unit/bootstrap.php tests/unit"/>
+      <arg line="--coverage-html tests/coverage"/>
     </exec>
   </target>
 
