@@ -44,4 +44,10 @@ final class UrlTest extends TestCase
         $url = new Url("http://example.com/", "", []);
         $this->assertSame("/", $url->relative());
     }
+
+    public function testCyrillicSubPage(): void
+    {
+        $url = new Url("http://example.com/", "Делаем/Печи", []);
+        $this->assertEquals("/?Делаем/Печи", $url->relative());
+    }
 }
