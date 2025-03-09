@@ -26,8 +26,8 @@ class Response
     /** @var string */
     private $output = "";
 
-    /** @var bool */
-    private $forbidden = false;
+    /** @var int */
+    private $status = 200;
 
     /** @var string|null */
     private $location = null;
@@ -54,10 +54,11 @@ class Response
         return $that;
     }
 
-    public static function forbid(string $output = ""): self
+    public static function error(int $status, string $output = ""): self
     {
+        assert($status >= 400);
         $that = new self();
-        $that->forbidden = true;
+        $that->status = $status;
         $that->output = $output;
         return $that;
     }
@@ -78,9 +79,9 @@ class Response
     {
         global $sn, $title;
 
-        if ($this->forbidden()) {
+        if ($this->status !== 200) {
             $this->purgeOutputBuffers();
-            http_response_code(403);
+            http_response_code($this->status);
             echo $this->output();
             exit;
         }
@@ -161,9 +162,9 @@ class Response
         return $this->title;
     }
 
-    public function forbidden(): bool
+    public function status(): int
     {
-        return $this->forbidden;
+        return $this->status;
     }
 
     /** @return array{string,string,int}|null */
