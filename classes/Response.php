@@ -26,6 +26,9 @@ class Response
     /** @var string */
     private $output = "";
 
+    /** @var bool */
+    private $forbidden = false;
+
     /** @var string|null */
     private $location = null;
 
@@ -38,6 +41,14 @@ class Response
     public static function create(string $output = ""): self
     {
         $that = new self();
+        $that->output = $output;
+        return $that;
+    }
+
+    public static function forbid(string $output = ""): self
+    {
+        $that = new self();
+        $that->forbidden = true;
         $that->output = $output;
         return $that;
     }
@@ -58,6 +69,12 @@ class Response
     {
         global $sn, $title;
 
+        if ($this->forbidden()) {
+            $this->purgeOutputBuffers();
+            http_response_code(403);
+            echo $this->output();
+            exit;
+        }
         if ($this->cookie() !== null) {
             [$name, $value, $expires] = $this->cookie();
             setcookie($name, $value, $expires, $sn);
@@ -104,9 +121,22 @@ class Response
         return $this->title;
     }
 
+    public function forbidden(): bool
+    {
+        return $this->forbidden;
+    }
+
     /** @return array{string,string,int}|null */
     public function cookie(): ?array
     {
         return $this->cookie;
+    }
+
+    /** @return void */
+    private function purgeOutputBuffers()
+    {
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
     }
 }
