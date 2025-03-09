@@ -38,6 +38,15 @@ class Response
     /** @var array{string,string,int}|null */
     private $cookie = null;
 
+    /** @var string|null */
+    private $contentType = null;
+
+    /** @var string|null */
+    private $attachment = null;
+
+    /** @var int|null */
+    private $length = null;
+
     public static function create(string $output = ""): self
     {
         $that = new self();
@@ -80,10 +89,20 @@ class Response
             setcookie($name, $value, $expires, $sn);
         }
         if ($this->location() !== null) {
-            while (ob_get_level()) {
-                ob_end_clean();
-            }
+            $this->purgeOutputBuffers();
             header("Location: " . $this->location(), true, 303);
+            exit;
+        }
+        if ($this->attachment() !== null) {
+            header("Content-Disposition: attachment; filename=\"" . $this->attachment() . "\"");
+        }
+        if ($this->length() !== null) {
+            header("Content-Length: " . $this->length());
+        }
+        if ($this->contentType() !== null) {
+            $this->purgeOutputBuffers();
+            header("Content-Type: " . $this->contentType());
+            echo $this->output();
             exit;
         }
         if ($this->title() !== null) {
@@ -103,6 +122,27 @@ class Response
     {
         $that = clone $this;
         $that->cookie = [$name, $value, $expires];
+        return $that;
+    }
+
+    public function withContentType(string $contentType): self
+    {
+        $that = clone $this;
+        $that->contentType = $contentType;
+        return $that;
+    }
+
+    public function withAttachment(string $attachment): self
+    {
+        $that = clone $this;
+        $that->attachment = $attachment;
+        return $that;
+    }
+
+    public function withLength(int $length): self
+    {
+        $that = clone $this;
+        $that->length = $length;
         return $that;
     }
 
@@ -130,6 +170,21 @@ class Response
     public function cookie(): ?array
     {
         return $this->cookie;
+    }
+
+    public function contentType(): ?string
+    {
+        return $this->contentType;
+    }
+
+    public function attachment(): ?string
+    {
+        return $this->attachment;
+    }
+
+    public function length(): ?int
+    {
+        return $this->length;
     }
 
     /** @return void */
