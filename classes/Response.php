@@ -21,7 +21,7 @@
 
 namespace Plib;
 
-class Response
+final class Response
 {
     /** @var string */
     private $output = "";

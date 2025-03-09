@@ -21,6 +21,9 @@
 
 namespace Plib;
 
+/**
+ * @final
+ */
 class View
 {
     /** @var string */

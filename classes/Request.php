@@ -21,6 +21,9 @@
 
 namespace Plib;
 
+/**
+ * @final
+ */
 class Request
 {
     /** @var Url */
