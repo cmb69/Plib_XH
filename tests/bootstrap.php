@@ -1,6 +1,7 @@
 <?php
 
 require_once "../../cmsimple/functions.php";
+require_once "./classes/Codec.php";
 require_once "./classes/Request.php";
 require_once "./classes/Response.php";
 require_once "./classes/Url.php";
