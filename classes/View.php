@@ -42,14 +42,14 @@ class View
     /** @param scalar $args */
     public function message(string $type, string $key, ...$args): string
     {
-        return XH_message($type, $this->text[$key], ...$args);
+        return XH_message($type, $this->text[$key], ...$args) . "\n";
     }
 
     /** @param scalar $args */
     public function pmessage(string $type, string $key, int $count, ...$args): string
     {
         $suffix = $count === 0 ? "_0" : XH_numberSuffix($count);
-        return XH_message($type, $this->text[$key . $suffix], $count, ...$args);
+        return XH_message($type, $this->text[$key . $suffix], $count, ...$args) . "\n";
     }
 
     /** @param scalar $args */
