@@ -17,7 +17,7 @@ oder im *Hi_updatecheck*.
 # Voraussetzungen
 
 Plib_XH ist ein Plugin für [CMSimple_XH](https://www.cmsimple-xh.org/de/).
-Es benötigt CMSimple_XH ≥ 1.7.0 und PHP ≥ 7.1.0.
+Es benötigt CMSimple_XH ≥ 1.7.0 und PHP ≥ 7.1.0 mit der JSON Erweiterung.
 
 ## Download
 

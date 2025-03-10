@@ -71,6 +71,12 @@ class View
         return sprintf($this->text[$key], ...$args);
     }
 
+    /** @param mixed $value */
+    public function json($value): string
+    {
+        return (string) json_encode($value, JSON_HEX_APOS | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
     /** @param array<string,mixed> $_data */
     public function render(string $_template, array $_data): string
     {
