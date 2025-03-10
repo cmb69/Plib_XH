@@ -23,37 +23,36 @@ namespace Plib;
 
 class FakeSystemChecker extends SystemChecker // @phpstan-ignore class.extendsFinalByPhpDoc
 {
-    /** @var array{version?:bool,extension?:bool,gd_freetype?:bool,gd_png?:bool,writability?:bool} */
-    private $opts;
+    /** @var bool */
+    private $success;
 
-    /** @param array{version?:bool,extension?:bool,gd_freetype?:bool,gd_png?:bool,writability?:bool} $opts */
-    public function __construct(array $opts = [])
+    public function __construct(bool $success = false)
     {
-        $this->opts = $opts;
+        $this->success = $success;
     }
 
     public function checkVersion(string $actual, string $minimum): bool
     {
-        return $this->opts["version"] ?? false;
+        return $this->success;
     }
 
     public function checkExtension(string $extension): bool
     {
-        return $this->opts["extension"] ?? false;
+        return $this->success;
     }
 
     public function checkGdFreetype(): bool
     {
-        return $this->opts["gd_freetype"] ?? false;
+        return $this->success;
     }
 
     public function checkGdPng(): bool
     {
-        return $this->opts["gd_png"] ?? false;
+        return $this->success;
     }
 
     public function checkWritability(string $path): bool
     {
-        return $this->opts["writability"] ?? false;
+        return $this->success;
     }
 }
