@@ -48,6 +48,16 @@ class SystemChecker
         return function_exists("imagetypes") && (imagetypes() & IMG_PNG);
     }
 
+    /** @since 1.1 */
+    public function checkPlugin(string $plugin, ?string $version = null): bool
+    {
+        $pluginVersion = XH_pluginVersion($plugin);
+        if ($version === null) {
+            return (bool) $pluginVersion;
+        }
+        return version_compare($pluginVersion, $version) >= 0;
+    }
+
     public function checkWritability(string $path): bool
     {
         return is_writable($path);

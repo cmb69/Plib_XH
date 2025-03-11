@@ -57,6 +57,11 @@ class FakeSystemChecker extends SystemChecker // @phpstan-ignore class.extendsFi
         return $this->success;
     }
 
+    public function checkPlugin(string $plugin, ?string $version = null): bool
+    {
+        return $this->success;
+    }
+
     public function checkWritability(string $path): bool
     {
         return $this->success;
