@@ -32,6 +32,9 @@ use const PHP_URL_PATH;
 
 /**
  * The URL of a CMSimple_XH page request
+ * 
+ * This class is not meant to be instantiated on its own;
+ * instances should only be access via `Request::url()`.
  */
 final class Url
 {
@@ -44,7 +47,10 @@ final class Url
     /** @var array<string,mixed> */
     private $params;
 
-    /** @param array<string,mixed> $params */
+    /**
+     * @param array<string,mixed> $params
+     * @internal
+     */
     public function __construct(string $base, string $page, array $params)
     {
         $this->base = $base;
