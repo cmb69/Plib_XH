@@ -32,7 +32,7 @@ use const PHP_URL_PATH;
 
 /**
  * The URL of a CMSimple_XH page request
- * 
+ *
  * This class is not meant to be instantiated on its own;
  * instances should only be access via `Request::url()`.
  */
