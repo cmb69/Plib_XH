@@ -22,6 +22,11 @@
 namespace Plib;
 
 /**
+ * A request to a CMSimple_XH page
+ * 
+ * This encapsulates the request super-globals `$_GET`, `$_POST` and `$_COOKIE`
+ * as well as some CMSimple_XH specifics, such as `XH_ADM` and `$sl`.
+ *
  * @final
  */
 class Request

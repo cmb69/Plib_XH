@@ -22,6 +22,13 @@
 namespace Plib;
 
 /**
+ * Rendering of HTML and plain text output
+ *
+ * Generally, `View` encapsulates `$plugin_tx` of the plugin.
+ * In simple cases, it can be used to compose a message (`XH_message()`).
+ * In more complex cases, it it used to render a view template, to which
+ * arbitrary values can be passed.
+ *
  * @final
  */
 class View

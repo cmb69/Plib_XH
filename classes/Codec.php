@@ -21,6 +21,15 @@
 
 namespace Plib;
 
+/**
+ * Text encoding and decoding helpers
+ * 
+ * Not to be confused with character encodings.
+ *
+ * While PHP already offers several such functions, e.g. `base64_encode()`,
+ * `urlencode()`, a couple of useful ones are not available.
+ * These may be implemented as static methods in this class.
+ */
 class Codec
 {
     public static function encodeBase64url(string $string): string

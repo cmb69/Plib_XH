@@ -21,6 +21,11 @@
 
 namespace Plib;
 
+/**
+ * A Request fake for automated testing
+ *
+ * @package Fakes
+ */
 final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByPhpDoc
 {
     /** @var array{url:Url,get:array<string,mixed>,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,language?:string} */

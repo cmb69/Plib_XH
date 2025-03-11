@@ -22,6 +22,8 @@
 namespace Plib;
 
 /**
+ * Typical predicates for system checks
+ *
  * @final
  */
 class SystemChecker
