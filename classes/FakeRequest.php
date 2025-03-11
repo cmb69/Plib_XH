@@ -25,6 +25,7 @@ namespace Plib;
  * A Request fake for automated testing
  *
  * @package Fakes
+ * @since 1.1
  */
 final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByPhpDoc
 {

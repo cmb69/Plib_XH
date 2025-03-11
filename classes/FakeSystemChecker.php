@@ -25,6 +25,7 @@ namespace Plib;
  * A SystemChecker fake for automated testing
  *
  * @package Fakes
+ * @since 1.1
  */
 class FakeSystemChecker extends SystemChecker // @phpstan-ignore class.extendsFinalByPhpDoc
 {

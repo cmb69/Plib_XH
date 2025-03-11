@@ -52,7 +52,10 @@ class View
         return XH_message($type, $this->text[$key], ...$args) . "\n";
     }
 
-    /** @param scalar $args */
+    /**
+     * @param scalar $args
+     * @since 1.1
+     */
     public function pmessage(string $type, string $key, int $count, ...$args): string
     {
         $suffix = $count === 0 ? "_0" : XH_numberSuffix($count);
@@ -65,7 +68,10 @@ class View
         return $this->esc(sprintf($this->text[$key], ...$args));
     }
 
-    /** @param scalar $args */
+    /**
+     * @param scalar $args
+     * @since 1.1
+     */
     public function plural(string $key, int $count, ...$args): string
     {
         $suffix = $count === 0 ? "_0" : XH_numberSuffix($count);
@@ -78,7 +84,10 @@ class View
         return sprintf($this->text[$key], ...$args);
     }
 
-    /** @param mixed $value */
+    /**
+     * @param mixed $value
+     * @since 1.1
+     */
     public function json($value): string
     {
         return (string) json_encode($value, JSON_HEX_APOS | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
