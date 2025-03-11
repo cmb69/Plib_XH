@@ -39,7 +39,11 @@ class Request
         global $su;
 
         $that = new self();
-        $that->url = new Url(CMSIMPLE_URL, $su, $su ? array_slice($_GET, 1) : $_GET);
+        $that->url = new Url(
+            (string) preg_replace('/index\.php$/', "", CMSIMPLE_URL),
+            $su,
+            $su ? array_slice($_GET, 1) : $_GET
+        );
         return $that;
     }
 
