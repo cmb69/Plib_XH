@@ -23,7 +23,7 @@ namespace Plib;
 
 /**
  * Text encoding and decoding helpers
- * 
+ *
  * Not to be confused with character encodings.
  *
  * While PHP already offers several such functions, e.g. `base64_encode()`,

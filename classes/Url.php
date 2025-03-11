@@ -32,8 +32,6 @@ use const PHP_URL_PATH;
 
 /**
  * The URL of a CMSimple_XH page request
- * 
- * 
  */
 final class Url
 {

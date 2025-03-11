@@ -27,7 +27,7 @@ namespace Plib;
  * This class encapsulates access to some of CMSimple_XH globals, e.g. `$o`
  * and `$title`, as well as sending of cookies, redirecting to another page,
  * and generally calls to `header()`, and `http_response_code()`.
- * 
+ *
  * A `Response` does not cause any side-effects until it is invoked.
  */
 final class Response
