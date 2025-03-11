@@ -5,4 +5,5 @@ parameters:
   bootstrapFiles:
     - phpstan.php
   scanFiles:
+    - ../../cmsimple/adminfuncs.php
     - ../../cmsimple/functions.php
