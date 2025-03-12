@@ -86,7 +86,7 @@ final class Response
     /** @return string|never */
     public function __invoke()
     {
-        global $sn, $title;
+        global $title;
 
         if ($this->status !== 200) {
             $this->purgeOutputBuffers();
@@ -96,7 +96,7 @@ final class Response
         }
         if ($this->cookie() !== null) {
             [$name, $value, $expires] = $this->cookie();
-            setcookie($name, $value, $expires, $sn);
+            setcookie($name, $value, $expires, CMSIMPLE_ROOT);
         }
         if ($this->location() !== null) {
             $this->purgeOutputBuffers();
@@ -128,6 +128,11 @@ final class Response
         return $that;
     }
 
+    /**
+     * Set a cookie for the whole CMSimple_XH installation
+     * 
+     * @link https://github.com/cmb69/plib_xh/issues/1
+     */
     public function withCookie(string $name, string $value, int $expires): self
     {
         $that = clone $this;
