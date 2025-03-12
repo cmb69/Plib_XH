@@ -50,4 +50,20 @@ final class UrlTest extends TestCase
         $url = new Url("http://example.com/", "Делаем/Печи", []);
         $this->assertEquals("/?Делаем/Печи", $url->relative());
     }
+
+    public function testPathForPrimaryLanguage(): void
+    {
+        $url = new Url("http://example.com/", "Page", ["foo" => "bar"]);
+        $url = $url->path("./userfiles/images/baz.jpg");
+        $this->assertSame("http://example.com/userfiles/images/baz.jpg", $url->absolute());
+        $this->assertSame("/userfiles/images/baz.jpg", $url->relative());
+    }
+
+    public function testPathForSecondaryLanguage(): void
+    {
+        $url = new Url("http://example.com/de/", "Page", ["foo" => "bar"]);
+        $url = $url->path("../userfiles/images/baz.jpg");
+        $this->assertSame("http://example.com/userfiles/images/baz.jpg", $url->absolute());
+        $this->assertSame("/userfiles/images/baz.jpg", $url->relative());
+    }
 }

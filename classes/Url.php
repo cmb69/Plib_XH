@@ -31,7 +31,7 @@ use const PHP_QUERY_RFC3986;
 use const PHP_URL_PATH;
 
 /**
- * The URL of a CMSimple_XH page request
+ * An internal CMSimple_XH URL
  *
  * This class is not meant to be instantiated on its own;
  * instances should only be access via `Request::url()`.
@@ -56,6 +56,23 @@ final class Url
         $this->base = $base;
         $this->page = $page;
         $this->params = $params;
+    }
+
+    /**
+     * Builds URL from a $pth element
+     *
+     * This allows to build, for instance, a URL for an image using
+     * `$pth["folder"]["images"]` from the `Request::url()`.
+     * Since page and params are usually meaningless in this context,
+     * they are removed.
+     */
+    public function path(string $path): self
+    {
+        $that = clone $this;
+        $that->base = (string) preg_replace(['/[^\/]*\/\.\.\//', '/\/\./'], '', $that->base . $path);
+        $that->page = "";
+        $that->params = [];
+        return $that;
     }
 
     public function page(string $page): self
