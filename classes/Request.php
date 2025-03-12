@@ -56,6 +56,20 @@ class Request
         return $this->url;
     }
 
+    /**
+     * Retrieves an HTTP request header
+     *
+     * @since 1.1
+     */
+    public function header(string $key): ?string
+    {
+        $name = "HTTP_" . str_replace("-", "_", strtoupper($key));
+        if (!isset($_SERVER[$name])) {
+            return null;
+        }
+        return trim($_SERVER[$name]);
+    }
+
     public function get(string $key): ?string
     {
         if (!isset($_GET[$key]) || !is_string($_GET[$key])) {
