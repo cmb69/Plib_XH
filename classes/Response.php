@@ -130,7 +130,7 @@ final class Response
 
     /**
      * Set a cookie for the whole CMSimple_XH installation
-     * 
+     *
      * @link https://github.com/cmb69/plib_xh/issues/1
      */
     public function withCookie(string $name, string $value, int $expires): self
