@@ -29,10 +29,10 @@ namespace Plib;
  */
 final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByPhpDoc
 {
-    /** @var array{url:Url,get:array<string,mixed>,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,language?:string} */
+    /** @var array{url:Url,header?:array<string,string>,get:array<string,mixed>,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,language?:string} */
     private $opts;
 
-    /** @param array{url?:string,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,language?:string} $opts */
+    /** @param array{header?:array<string,string>,url?:string,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,language?:string} $opts */
     public function __construct(array $opts = [])
     {
         $url = $opts["url"] ?? "http://example.com/";
@@ -77,6 +77,14 @@ final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByP
     public function url(): Url
     {
         return $this->opts["url"];
+    }
+
+    public function header(string $key): ?string
+    {
+        if (!isset($this->opts["header"][$key])) {
+            return null;
+        }
+        return trim($this->opts["header"][$key]);
     }
 
     public function get(string $key): ?string
