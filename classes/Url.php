@@ -65,6 +65,8 @@ final class Url
      * `$pth["folder"]["images"]` from the `Request::url()`.
      * Since page and params are usually meaningless in this context,
      * they are removed.
+     *
+     * @since 1.1
      */
     public function path(string $path): self
     {
