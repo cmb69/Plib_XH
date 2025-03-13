@@ -7,3 +7,4 @@ parameters:
   scanFiles:
     - ../../cmsimple/adminfuncs.php
     - ../../cmsimple/functions.php
+    - ../jquery/jquery.inc.php
