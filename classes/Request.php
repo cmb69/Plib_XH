@@ -104,6 +104,18 @@ class Request
         return defined("XH_ADM") && XH_ADM;
     }
 
+    /**
+     * The selected URL ($su)
+     *
+     * @since 1.2
+     */
+    public function selected(): string
+    {
+        global $su;
+
+        return $su;
+    }
+
     public function language(): string
     {
         global $sl;

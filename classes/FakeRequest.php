@@ -29,7 +29,7 @@ namespace Plib;
  */
 final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByPhpDoc
 {
-    /** @var array{url:Url,header?:array<string,string>,get:array<string,mixed>,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,language?:string} */
+    /** @var array{url:Url,header?:array<string,string>,get:array<string,mixed>,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,selected:string,language?:string} */
     private $opts;
 
     /** @param array{header?:array<string,string>,url?:string,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,language?:string} $opts */
@@ -40,6 +40,7 @@ final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByP
         if (count($parts) === 1) {
             $opts["url"] = new Url($parts[0], "", []);
             $opts["get"] = [];
+            $opts["selected"] = "";
         } else {
             $query = explode("&", $parts[1], 2);
             $su = $query[0];
@@ -51,6 +52,7 @@ final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByP
                 $opts["url"] = new Url($parts[0], $su, []);
                 $opts["get"] = [];
             }
+            $opts["selected"] = $su;
         }
         $this->opts = $opts;
     }
@@ -119,6 +121,11 @@ final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByP
     public function admin(): bool
     {
         return $this->opts["admin"] ?? false;
+    }
+
+    public function selected(): string
+    {
+        return $this->opts["selected"];
     }
 
     public function language(): string
