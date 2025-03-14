@@ -29,10 +29,10 @@ namespace Plib;
  */
 final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByPhpDoc
 {
-    /** @var array{url:Url,header?:array<string,string>,get:array<string,mixed>,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,selected:string,language?:string} */
+    /** @var array{url:Url,header?:array<string,string>,get:array<string,mixed>,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,selected:string,language?:string,edit?:bool} */
     private $opts;
 
-    /** @param array{header?:array<string,string>,url?:string,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,language?:string} $opts */
+    /** @param array{header?:array<string,string>,url?:string,cookie?:array<string,mixed>,post?:array<string,mixed>,time?:int,admin?:bool,language?:string,edit?:bool} $opts */
     public function __construct(array $opts = [])
     {
         $url = $opts["url"] ?? "http://example.com/";
@@ -131,5 +131,10 @@ final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByP
     public function language(): string
     {
         return $this->opts["language"] ?? "en";
+    }
+
+    public function edit(): bool
+    {
+        return $this->opts["edit"] ?? false;
     }
 }

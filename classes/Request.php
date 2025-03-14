@@ -122,4 +122,16 @@ class Request
 
         return $sl;
     }
+
+    /**
+     * Wraps $edit
+     *
+     * @since 1.2
+     */
+    public function edit(): bool
+    {
+        global $edit;
+
+        return (bool) $edit;
+    }
 }
