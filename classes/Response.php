@@ -56,6 +56,9 @@ final class Response
     /** @var int|null */
     private $length = null;
 
+    /** @var ?string */
+    private $bjs = null;
+
     public static function create(string $output = ""): self
     {
         $that = new self();
@@ -86,7 +89,7 @@ final class Response
     /** @return string|never */
     public function __invoke()
     {
-        global $title;
+        global $title, $bjs;
 
         if ($this->status !== 200) {
             $this->purgeOutputBuffers();
@@ -117,6 +120,9 @@ final class Response
         }
         if ($this->title() !== null) {
             $title = $this->title();
+        }
+        if ($this->bjs !== null) {
+            $bjs = $this->bjs;
         }
         return $this->output();
     }
@@ -161,6 +167,14 @@ final class Response
         return $that;
     }
 
+    /** @since 1.2 */
+    public function withBjs(string $bjs): self
+    {
+        $that = clone $this;
+        $that->bjs = $bjs;
+        return $that;
+    }
+
     public function output(): string
     {
         return $this->output;
@@ -200,6 +214,12 @@ final class Response
     public function length(): ?int
     {
         return $this->length;
+    }
+
+    /** @since 1.2 */
+    public function bjs(): ?string
+    {
+        return $this->bjs;
     }
 
     /** @return void */
