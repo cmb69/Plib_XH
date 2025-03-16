@@ -118,6 +118,12 @@ class Request
         return (int) $_SERVER["REQUEST_TIME"];
     }
 
+    /** @since 1.2 */
+    public function remoteAddr(): string
+    {
+        return $_SERVER["REMOTE_ADDR"];
+    }
+
     public function admin(): bool
     {
         return defined("XH_ADM") && XH_ADM;
