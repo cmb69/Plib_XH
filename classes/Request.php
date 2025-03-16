@@ -94,6 +94,25 @@ class Request
         return trim($_POST[$key]);
     }
 
+    /**
+     * @return ?array<string>
+     * @since 1.2
+     */
+    public function postArray(string $key): ?array
+    {
+        if (!isset($_POST[$key]) || !is_array($_POST[$key])) {
+            return null;
+        }
+        $res = [];
+        foreach ($_POST[$key] as $key => $val) {
+            if (!is_string($val)) {
+                return null;
+            }
+            $res[$key] = trim($val);
+        }
+        return $res;
+    }
+
     public function time(): int
     {
         return (int) $_SERVER["REQUEST_TIME"];
