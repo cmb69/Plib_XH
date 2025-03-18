@@ -6,6 +6,7 @@
    :titlesonly:
 
    overview
+   tutorial/index
 
 Documentation
 =============
