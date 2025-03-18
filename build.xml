@@ -37,7 +37,7 @@
   </target>
 
   <target name="doc" description="build developer documentation">
-    <exec executable="phpdocumentor" passthru="true" checkreturn="true">
+    <exec executable="phpDocumentor" passthru="true" checkreturn="true">
       <arg line="-d classes"/>
     </exec>
   </target>
