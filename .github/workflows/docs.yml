@@ -1,0 +1,39 @@
+name: docs
+on: [workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: phive
+      - name: Checkout Plib_XH
+        uses: actions/checkout@v4
+      - name: Cache tools
+        id: cache-tools
+        uses: actions/cache@v4
+        with:
+          path: cmsimplexh/plugins/plib/tools
+          key: tools-${{hashFiles('cmsimplexh/plugins/plib/.phive')}}
+      - if: ${{steps.cache-tools.outputs.cache-hit != 'true'}}
+        name: phive install
+        run: phive --no-progress install --copy --trust-gpg-keys 0F9684B8B16B7AB0,31C7E470E2138192,51C67305FFC2E5C0,6DA3ACC4991FFAE5,9093F8B32E4815AA,A978220305CD5C32,CF1A108D0E7AE720,D5F0CB76E2DD74F8
+      - name: phing doc
+        run: PATH=tools:vendor/bin:$PATH phing doc
+      - name: Upload docs
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .phpdoc/build/
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
