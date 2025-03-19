@@ -39,7 +39,7 @@ Plib_XH unterstützt keine Konfiguration, Spracheinstellungen oder ein Styleshee
 
 ## Entwicklernutzung
 
-Zu erledidigen…
+See https://cmb69.github.io/Plib_XH/.
 
 ## Problembehebung
 
