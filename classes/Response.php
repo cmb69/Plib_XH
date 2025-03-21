@@ -128,7 +128,7 @@ final class Response
             $hjs .= $this->hjs;
         }
         if ($this->bjs !== null) {
-            $bjs = $this->bjs;
+            $bjs .= $this->bjs;
         }
         return $this->output();
     }
