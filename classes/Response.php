@@ -57,6 +57,9 @@ final class Response
     private $length = null;
 
     /** @var ?string */
+    private $hjs = null;
+
+    /** @var ?string */
     private $bjs = null;
 
     public static function create(string $output = ""): self
@@ -89,7 +92,7 @@ final class Response
     /** @return string|never */
     public function __invoke()
     {
-        global $title, $bjs;
+        global $title, $hjs, $bjs;
 
         if ($this->status !== 200) {
             $this->purgeOutputBuffers();
@@ -120,6 +123,9 @@ final class Response
         }
         if ($this->title() !== null) {
             $title = $this->title();
+        }
+        if ($this->hjs !== null) {
+            $hjs .= $this->hjs;
         }
         if ($this->bjs !== null) {
             $bjs = $this->bjs;
@@ -164,6 +170,21 @@ final class Response
     {
         $that = clone $this;
         $that->length = $length;
+        return $that;
+    }
+
+    /**
+     * Appends to $hjs
+     *
+     * This does not work from templates, and therefore is better avoided,
+     * but sometimes it is just necessary.
+     *
+     * @since 1.3
+     */
+    public function withHjs(string $hjs): self
+    {
+        $that = clone $this;
+        $that->hjs = $hjs;
         return $that;
     }
 
@@ -214,6 +235,12 @@ final class Response
     public function length(): ?int
     {
         return $this->length;
+    }
+
+    /** @since 1.3 */
+    public function hjs(): ?string
+    {
+        return $this->hjs;
     }
 
     /** @since 1.2 */
