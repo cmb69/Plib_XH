@@ -34,7 +34,12 @@ use const PHP_URL_PATH;
  * An internal CMSimple_XH URL
  *
  * This class is not meant to be instantiated on its own;
- * instances should only be access via `Request::url()`.
+ * instances should only be accessed via `Request::url()`.
+ * 
+ * Since Plib_XH 1.4, the plugin generates
+ * [clean URLs](https://cmsimpleforum.com/viewtopic.php?f=4&t=5719),
+ * if that is enabled in the hidden configuration
+ * (`plugin_cf['plib']['clean_urls']="true"`).
  */
 final class Url
 {
@@ -112,19 +117,25 @@ final class Url
 
     private function suffix(): string
     {
+        global $plugin_cf;
+
+        $separator = $plugin_cf["plib"]["clean_urls"] ? "" : "?";
         $query = $this->query();
         if ($query !== "") {
-            return "?" . $query;
+            return $separator . $query;
         }
         return "";
     }
 
     private function query(): string
     {
+        global $plugin_cf;
+
+        $separator = $plugin_cf["plib"]["clean_urls"] ? "?" : "&";
         $query = $this->page;
         if (count($this->params) > 0) {
             $rest = http_build_query($this->params, "", "&", PHP_QUERY_RFC3986);
-            $query .= "&" . preg_replace('/=(?=&|$)/', "", $rest);
+            $query .= $separator . preg_replace('/=(?=&|$)/', "", $rest);
         }
         return $query;
     }

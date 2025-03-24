@@ -25,6 +25,13 @@ use PHPUnit\Framework\TestCase;
 
 final class UrlTest extends TestCase
 {
+    public function setUp(): void
+    {
+        global $plugin_cf;
+
+        $plugin_cf = ["plib" => ["clean_urls" => ""]];
+    }
+
     public function testAbsolute(): void
     {
         $url = new Url("http://example.com/", "", ["a" => "b"]);
@@ -65,5 +72,16 @@ final class UrlTest extends TestCase
         $url = $url->path("../userfiles/images/baz.jpg");
         $this->assertSame("http://example.com/userfiles/images/baz.jpg", $url->absolute());
         $this->assertSame("/userfiles/images/baz.jpg", $url->relative());
+    }
+
+    public function testCleanUrls(): void
+    {
+        global $plugin_cf;
+
+        $plugin_cf["plib"]["clean_urls"] = "true";
+        $url = new Url("http://example.com/", "", ["a" => "b"]);
+        $url = $url->page("foo")->without("a")->with("bar", "baz")->with("c", "d");
+        $this->assertSame("http://example.com/foo?bar=baz&c=d", $url->absolute());
+        $this->assertSame("/foo?bar=baz&c=d", $url->relative());
     }
 }

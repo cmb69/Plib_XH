@@ -8,9 +8,10 @@ class RequestTest extends TestCase
 {
     public function setUp(): void
     {
-        global $su;
+        global $su, $plugin_cf;
 
         $su = "";
+        $plugin_cf = ["plib" => ["clean_urls" => ""]];
     }
 
     public function testUrl(): void
