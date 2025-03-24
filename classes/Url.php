@@ -119,7 +119,7 @@ final class Url
     {
         global $plugin_cf;
 
-        $separator = $plugin_cf["plib"]["clean_urls"] ? "" : "?";
+        $separator = ($plugin_cf["plib"]["clean_urls"] ?? "") ? "" : "?";
         $query = $this->query();
         if ($query !== "") {
             return $separator . $query;
@@ -131,7 +131,7 @@ final class Url
     {
         global $plugin_cf;
 
-        $separator = $plugin_cf["plib"]["clean_urls"] ? "?" : "&";
+        $separator = ($plugin_cf["plib"]["clean_urls"] ?? "") ? "?" : "&";
         $query = $this->page;
         if (count($this->params) > 0) {
             $rest = http_build_query($this->params, "", "&", PHP_QUERY_RFC3986);
