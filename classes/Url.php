@@ -35,7 +35,7 @@ use const PHP_URL_PATH;
  *
  * This class is not meant to be instantiated on its own;
  * instances should only be accessed via `Request::url()`.
- * 
+ *
  * Since Plib_XH 1.4, the plugin generates
  * [clean URLs](https://cmsimpleforum.com/viewtopic.php?f=4&t=5719),
  * if that is enabled in the hidden configuration
