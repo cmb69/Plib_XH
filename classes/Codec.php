@@ -64,6 +64,7 @@ class Codec
      * Encodes Base 32 Encoding with Extended Hex Alphabet
      *
      * @see https://datatracker.ietf.org/doc/html/rfc4648#section-7
+     * @since 1.4
      */
     public static function encodeBase32hex(string $bytes): string
     {
@@ -101,6 +102,7 @@ class Codec
      * Decodes Base 32 Encoding with Extended Hex Alphabet
      *
      * @see https://datatracker.ietf.org/doc/html/rfc4648#section-7
+     * @since 1.4
      */
     public static function decodeBase32hex(string $string): string
     {
