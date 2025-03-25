@@ -38,4 +38,44 @@ class CodecTest extends TestCase
             ["\\", null],
         ];
     }
+
+    /** @dataProvider encodeBase32hexData */
+    public function testEncodeBase32hex(string $input, string $expected): void
+    {
+        $actual = Codec::encodeBase32hex($input);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function encodeBase32hexData(): array
+    {
+        return [
+            ["", ""],
+            ["f", "CO======"],
+            ["fo", "CPNG===="],
+            ["foo", "CPNMU==="],
+            ["foob", "CPNMUOG="],
+            ["fooba", "CPNMUOJ1"],
+            ["foobar", "CPNMUOJ1E8======"],
+        ];
+    }
+
+    /** @dataProvider decodeBase32hexData */
+    public function testDecodeBase32hex(string $input, string $expected): void
+    {
+        $actual = Codec::decodeBase32hex($input);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function decodeBase32hexData(): array
+    {
+        return [
+            ["", ""],
+            ["CO======", "f"],
+            ["CPNG====", "fo"],
+            ["CPNMU===", "foo"],
+            ["CPNMUOG=", "foob"],
+            ["CPNMUOJ1", "fooba"],
+            ["CPNMUOJ1E8======", "foobar"],
+        ];
+    }
 }
