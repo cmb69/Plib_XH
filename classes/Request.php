@@ -113,6 +113,30 @@ class Request
         return $res;
     }
 
+    /**
+     * Retrieves information about an uploaded file
+     *
+     * This is basically a wrapper over `$_FILES`.
+     * For now, only simple `$key`s are supported, i.e. no arrays.
+     * If the file referred to by `$key` has been uploaded,
+     * an `UploadedFile` instance is returned.
+     * Otherwise `null` is returned.
+     *
+     * @since 1.5
+     */
+    public function file(string $key): ?UploadedFile
+    {
+        if (
+            !isset($_FILES[$key])
+            || !is_string($_FILES[$key]["tmp_name"])
+            || !is_uploaded_file($_FILES[$key]["tmp_name"])
+        ) {
+            return null;
+        }
+        $file = $_FILES[$key];
+        return new UploadedFile($file["name"], $file["type"], $file["size"], $file["tmp_name"], $file["error"]);
+    }
+
     public function time(): int
     {
         return (int) $_SERVER["REQUEST_TIME"];
