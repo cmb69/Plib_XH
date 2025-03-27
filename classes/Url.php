@@ -82,10 +82,18 @@ final class Url
         return $that;
     }
 
+    /**
+     * Allows to refer to another page
+     *
+     * This is occassionally useful to provide a link to another page
+     * of the Website.  Since it usually does not make sense to keep
+     * existing query parameters in this case, they are removed.
+     */
     public function page(string $page): self
     {
         $url = clone $this;
         $url->page = $page;
+        $url->params = [];
         return $url;
     }
 
