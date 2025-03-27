@@ -74,20 +74,20 @@
       </fileset>
     </move>
     <delete dir="export"/>
-    <zip destfile="Plib_XH-1.4.zip" basedir="dist" prefix="plib/"/>
+    <zip destfile="Plib_XH-1.5.zip" basedir="dist" prefix="plib/"/>
     <delete dir="dist"/>
   </target>
 
   <target name="build-patch" description="builds a distributable update package">
     <fail unless="patchee" message="patchee is not defined!"/>
-    <unzip file="Plib_XH-1.4.zip" todir="current"/>
+    <unzip file="Plib_XH-1.5.zip" todir="current"/>
     <unzip file="${patchee}" todir="patchee"/>
     <copy todir="dist">
       <fileset dir="current">
         <different targetdir="patchee" ignoreFileTimes="true"/>
       </fileset>
     </copy>
-    <zip destfile="Plib_XH-1.4-update-from-1.x.zip" basedir="dist" includeemptydirs="false"/>
+    <zip destfile="Plib_XH-1.5-update-from-1.x.zip" basedir="dist" includeemptydirs="false"/>
     <delete dir="patchee" quiet="true"/>
     <delete dir="current" quiet="true"/>
     <delete dir="dist" quiet="true"/>
