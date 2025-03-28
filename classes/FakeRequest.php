@@ -113,6 +113,21 @@ final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByP
         return trim($this->opts["post"][$key]);
     }
 
+    public function postArray(string $key): ?array
+    {
+        if (!isset($this->opts["post"][$key]) || !is_array($this->opts["post"][$key])) {
+            return null;
+        }
+        $res = [];
+        foreach ($this->opts["post"][$key] as $key => $val) {
+            if (!is_string($val)) {
+                return null;
+            }
+            $res[$key] = trim($val);
+        }
+        return $res;
+    }
+
     public function file(string $key): ?UploadedFile
     {
         if (!isset($this->opts["files"][$key])) {
