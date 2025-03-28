@@ -29,10 +29,10 @@ namespace Plib;
  */
 final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByPhpDoc
 {
-    /** @var array{url:Url,header?:array<string,string>,get:array<string,mixed>,cookie?:array<string,mixed>,post?:array<string,mixed>,files?:array<string,UploadedFile>,time?:int,admin?:bool,selected:string,language?:string,edit?:bool} */
+    /** @var array{url:Url,header?:array<string,string>,get:array<string,mixed>,cookie?:array<string,mixed>,post?:array<string,mixed>,files?:array<string,UploadedFile>,time?:int,username?:string,admin?:bool,selected:string,language?:string,edit?:bool} */
     private $opts;
 
-    /** @param array{header?:array<string,string>,url?:string,cookie?:array<string,mixed>,post?:array<string,mixed>,files?:array<string,UploadedFile>,time?:int,admin?:bool,language?:string,edit?:bool} $opts */
+    /** @param array{header?:array<string,string>,url?:string,cookie?:array<string,mixed>,post?:array<string,mixed>,files?:array<string,UploadedFile>,time?:int,username?:string,admin?:bool,language?:string,edit?:bool} $opts */
     public function __construct(array $opts = [])
     {
         $url = $opts["url"] ?? "http://example.com/";
@@ -124,6 +124,11 @@ final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByP
     public function time(): int
     {
         return $this->opts["time"] ?? 1741617587;
+    }
+
+    public function username(): ?string
+    {
+        return $this->opts["username"] ?? null;
     }
 
     public function admin(): bool

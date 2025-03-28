@@ -148,6 +148,26 @@ class Request
         return $_SERVER["REMOTE_ADDR"];
     }
 
+    /**
+     * The name of the currently logged in user
+     *
+     * This currently supports Register_XH and Memberpages.
+     * If no user is logged in, `null` is returned.
+     * This method is completely orthogonal to {@see Request::admin()};
+     * a user may be logged in simultaneously as member and admin.
+     *
+     * @since 1.6
+     */
+    public function username(): ?string
+    {
+        return $_SESSION['username'] ?? ($_SESSION['Name'] ?? null);
+    }
+
+    /**
+     * Whether the user is logged in as administrator
+     *
+     * @see Request::username()
+     */
     public function admin(): bool
     {
         return defined("XH_ADM") && XH_ADM;
