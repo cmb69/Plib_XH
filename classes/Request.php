@@ -78,6 +78,25 @@ class Request
         return trim($_GET[$key]);
     }
 
+    /**
+     * @return ?array<string>
+     * @since 1.6
+     */
+    public function getArray(string $key): ?array
+    {
+        if (!isset($_GET[$key]) || !is_array($_GET[$key])) {
+            return null;
+        }
+        $res = [];
+        foreach ($_GET[$key] as $key => $val) {
+            if (!is_string($val)) {
+                return null;
+            }
+            $res[$key] = trim($val);
+        }
+        return $res;
+    }
+
     public function cookie(string $key): ?string
     {
         if (!isset($_COOKIE[$key]) || !is_string($_COOKIE[$key])) {

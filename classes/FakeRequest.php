@@ -97,6 +97,21 @@ final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByP
         return trim($this->opts["get"][$key]);
     }
 
+    public function getArray(string $key): ?array
+    {
+        if (!isset($this->opts["get"][$key]) || !is_array($this->opts["get"][$key])) {
+            return null;
+        }
+        $res = [];
+        foreach ($this->opts["get"][$key] as $key => $val) {
+            if (!is_string($val)) {
+                return null;
+            }
+            $res[$key] = trim($val);
+        }
+        return $res;
+    }
+
     public function cookie(string $key): ?string
     {
         if (!isset($this->opts["cookie"][$key]) || !is_string($this->opts["cookie"][$key])) {
