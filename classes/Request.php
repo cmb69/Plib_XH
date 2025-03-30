@@ -174,6 +174,18 @@ class Request
     }
 
     /**
+     * The selected page ($s)
+     *
+     * @since 1.6
+     */
+    public function s(): int
+    {
+        global $s;
+
+        return $s;
+    }
+
+    /**
      * The selected URL ($su)
      *
      * @since 1.2
