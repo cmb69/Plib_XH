@@ -6,6 +6,7 @@
    requests
    responses
    testing
+   persistent_data
 
 Tutorial
 ========
