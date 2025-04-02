@@ -22,12 +22,12 @@
 namespace Plib;
 
 /**
- * Abstract base class of model objects stored in a `DocumentStore`
+ * Interface of model objects stored in a `DocumentStore`
  *
  * @see DocumentStore
  * @since 1.6
  */
-abstract class Document
+interface Document
 {
     /**
      * Creates a model object from its storage representation
@@ -41,14 +41,14 @@ abstract class Document
      *
      * @return ?static
      */
-    abstract public static function fromString(string $contents);
+    public static function fromString(string $contents);
 
     /**
      * Returns the storage representation of the model object
      *
-     * This is method is called from {@see Document::save()},
+     * This is method is called from {@see DocumentStore::commit()},
      * and should return a string which could be passed to
-     * {@see Document::fromString()} yielding the same object.
+     * {@see Document::fromString()} yielding an equal object.
      */
-    abstract public function toString(): string;
+    public function toString(): string;
 }

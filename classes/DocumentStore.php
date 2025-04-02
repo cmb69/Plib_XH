@@ -26,11 +26,11 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
 /**
- * File system storage of concrete `Document` subclass objects
+ * File system storage of objects implementing `Document`
  *
  * A minimalist key-value store, where the keys are filenames,
- * and the values are {@see Document}s.  Different concrete
- * `Document` subclasses can be maintained in the same `DocumentStore`.
+ * and the values are {@see Document}s.  Different implementations of
+ * `Document` can be maintained in the same `DocumentStore`.
  *
  * @final
  * @since 1.6
@@ -127,8 +127,9 @@ class DocumentStore
      * read) are passed to `$class`s {@see Document::fromString()},
      * whose returned value is then returned from this method.
      *
-     * The file is only unlocked and closed, when {@see Document::save()}
-     * or {@see Document::discard()} are called, so it is mandatory to
+     * Unless `Document::fromString()` returns `null`, the file is only
+     * unlocked and closed, when {@see DocumentStore::commit()} or
+     * {@see DocumentStore::rollback()} are called, so it is mandatory to
      * call either method when you are done with the object.  If you
      * forget that, an assertion will be triggered when the `DocumentStore`
      * is destroyed.
@@ -163,6 +164,15 @@ class DocumentStore
         return $document;
     }
 
+    /**
+     * Commits the changes to the document
+     *
+     * In other words, the document is saved, and the respective file
+     * is unlocked  and closed.
+     *
+     * Calling this method requires to pass a document previously
+     * retrieved via `DocumentStore::update()`.
+     */
     public function commit(Document $document): bool
     {
         $key = $this->keyOf($document);
@@ -183,6 +193,15 @@ class DocumentStore
         return $contents !== false && $length !== false;
     }
 
+    /**
+     * Rolls back changes to the document
+     *
+     * In other words, the respective file is unlocked and closed,
+     * but the actual `Document` is not modified.
+     *
+     * Calling this method requires to pass a document previously
+     * retrieved via `DocumentStore::update()`.
+     */
     public function rollback(Document $document): void
     {
         $key = $this->keyOf($document);

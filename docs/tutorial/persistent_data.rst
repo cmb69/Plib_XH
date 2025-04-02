@@ -46,14 +46,14 @@ Let us have a look at how this is done in the Online plugin:
 Although the logic is not really complex, the code is hard to
 understand, and obiously hard to test, because it mixes the concerns
 of the file storage, and the logic on how to maintain the data.
-Can we do better?  Let us have a look at the `Document` and `DocumentStore`
-classes.
+Can we do better?  Let us have a look at the `Document` interface
+and `DocumentStore` class.
 
-First, we would create a suitable subclass of `Document` and implement
-only the two abstract methods:
+First, we create a suitable class which implements the `Document`
+methods:
 
 .. code-block:: php
-    class Online extends Document
+    class Online implements Document
     {
         private $times = [];
 
@@ -87,7 +87,7 @@ delete all entries older than `$minutes * 60` seconds,
 and to get the number of users who are currently online.
 
 .. code-block:: php
-    class Online extends Document
+    class Online implements Document
     {
         // existing code omitted for brevity
 
@@ -116,7 +116,7 @@ Finally, we assemble that in the `gonline()` function:
     $model = $store->update("online.txt", Online::class);
     $model->updateTimestamp($ip, $time);
     $model->removeOfflineUsers($time);
-    $model->save(); // save right away, we are not doing further modifications
+    $store->commit($model); // save right away, we are not doing further modifications
     $users = $model->countOnlineUsers();
 
 While this is obviously more code than in the original (although not
