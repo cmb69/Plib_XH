@@ -116,7 +116,7 @@ Finally, we assemble that in the `gonline()` function:
     $model = $store->update("online.txt", Online::class);
     $model->updateTimestamp($ip, $time);
     $model->removeOfflineUsers($time);
-    $store->commit($model); // save right away, we are not doing further modifications
+    $store->commit(); // save right away, we are not doing further modifications
     $users = $model->countOnlineUsers();
 
 While this is obviously more code than in the original (although not
@@ -128,7 +128,7 @@ of the current user, remove the offline users, save, and finally count
 the remaining online users.  Even no need for some additional comments.
 And if we wanted to be a bit more robust than in the original,
 because writing to a file can always fail for various reasons,
-we only had to check the return value of `$model->save()`
+we only had to check the return value of `$store->commit()`
 instead of checking multiple lowlevel filesystem calls (such as `fputs`).
 
 The implementation of the `Online` class is also easy to understand,

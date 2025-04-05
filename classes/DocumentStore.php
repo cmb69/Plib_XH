@@ -130,7 +130,7 @@ class DocumentStore
      * Unless `Document::fromString()` returns `null`, the file is only
      * unlocked and closed, when {@see DocumentStore::commit()} or
      * {@see DocumentStore::rollback()} are called, so it is mandatory to
-     * call either method when you are done with the object.  If you
+     * call either method when you are done with the objects.  If you
      * forget that, an assertion will be triggered when the `DocumentStore`
      * is destroyed.
      *
@@ -165,62 +165,35 @@ class DocumentStore
     }
 
     /**
-     * Commits the changes to the document
-     *
-     * In other words, the document is saved, and the respective file
-     * is unlocked  and closed.
-     *
-     * Calling this method requires to pass a document previously
-     * retrieved via `DocumentStore::update()`.
+     * Commits all pending changes to the store
      */
-    public function commit(Document $document): bool
+    public function commit(): bool
     {
-        $key = $this->keyOf($document);
-        if ($key === null || !isset($this->open[$key])) {
-            return false;
-        }
-        [$stream, $document] = $this->open[$key];
-        $contents = $document->toString();
-        rewind($stream);
-        if ($contents !== false) {
-            if (($length = fwrite($stream, $contents)) !== false) {
-                ftruncate($stream, $length);
+        foreach (array_reverse($this->open) as $key => [$stream, $document]) {
+            $contents = $document->toString();
+            rewind($stream);
+            if (($length = fwrite($stream, $contents)) === false) {
+                $this->rollback();
+                return false;
             }
-        }
-        flock($stream, LOCK_UN);
-        fclose($stream);
-        unset($this->open[$key]);
-        return $contents !== false && $length !== false;
-    }
-
-    /**
-     * Rolls back changes to the document
-     *
-     * In other words, the respective file is unlocked and closed,
-     * but the actual `Document` is not modified.
-     *
-     * Calling this method requires to pass a document previously
-     * retrieved via `DocumentStore::update()`.
-     */
-    public function rollback(Document $document): void
-    {
-        $key = $this->keyOf($document);
-        if ($key !== null && isset($this->open[$key])) {
-            [$stream, ] = $this->open[$key];
+            ftruncate($stream, $length);
             flock($stream, LOCK_UN);
             fclose($stream);
             unset($this->open[$key]);
         }
+        return true;
     }
 
-    private function keyOf(Document $document): ?string
+    /**
+     * Rolls back all pending changes to the store
+     */
+    public function rollback(): void
     {
-        foreach ($this->open as $key => [, $doc]) {
-            if ($doc === $document) {
-                return $key;
-            }
+        foreach ($this->open as $key => [$stream, ]) {
+            flock($stream, LOCK_UN);
+            fclose($stream);
+            unset($this->open[$key]);
         }
-        return null;
     }
 
     /**
