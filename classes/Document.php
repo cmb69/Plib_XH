@@ -41,7 +41,7 @@ interface Document
      *
      * @return ?static
      */
-    public static function fromString(string $contents);
+    public static function fromString(string $contents, string $key);
 
     /**
      * Returns the storage representation of the model object

@@ -115,7 +115,7 @@ class DocumentStore
                 fclose($stream);
             }
         }
-        return $class::fromString($contents ?? "");
+        return $class::fromString($contents ?? "", $key);
     }
 
     /**
@@ -152,7 +152,7 @@ class DocumentStore
                 $contents = "";
             }
         }
-        $document = $class::fromString($contents ?? "");
+        $document = $class::fromString($contents ?? "", $key);
         if ($stream) {
             if ($document === null) {
                 flock($stream, LOCK_UN);

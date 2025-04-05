@@ -57,7 +57,7 @@ methods:
     {
         private $times = [];
 
-        public static function fromString(string $contents)
+        public static function fromString(string $contents, string $key)
         {
             $that = new static();
             $lines = explode("\n", $contents);
@@ -78,7 +78,7 @@ methods:
         }
     }
 
-`Online::fromString()` parses the file, and stores the relevant
+`Online::fromString()` parses the `$contents`, and stores the relevant
 data in `Online::$times`, while `Online::toString()` reassembles
 the string representation from the private property.
 Next, we implement the three pieces of logic, namely to 
