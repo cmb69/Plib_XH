@@ -146,7 +146,11 @@ class DocumentStore
             $this->make($this->folder . $dirname);
         }
         $filename = $this->folder() . $key;
-        if (($stream = fopen($filename, "c+")) !== false) {
+        $stream = @fopen($filename, "c+");
+        if ($stream === false) {
+            $stream = @fopen($filename, "r");
+        }
+        if ($stream !== false) {
             flock($stream, LOCK_EX);
             if (($contents = stream_get_contents($stream)) === false) {
                 $contents = "";
