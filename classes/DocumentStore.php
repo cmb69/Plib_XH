@@ -176,7 +176,7 @@ class DocumentStore
         foreach (array_reverse($this->open) as $key => [$stream, $document]) {
             $contents = $document->toString();
             rewind($stream);
-            if (($length = fwrite($stream, $contents)) === false) {
+            if (($length = @fwrite($stream, $contents)) !== strlen($contents)) {
                 $this->rollback();
                 return false;
             }
