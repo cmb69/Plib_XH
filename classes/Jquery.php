@@ -36,17 +36,22 @@ class Jquery
         $this->jqueryFolder = $jqueryFolder;
     }
 
-    /** @return void */
-    public function include()
+    public function include(): void
     {
         include_once $this->jqueryFolder . "jquery.inc.php";
         include_jQuery();
     }
 
-    /** @return void */
-    public function includePlugin(string $name, string $path)
+    public function includePlugin(string $name, string $path): void
     {
         include_once $this->jqueryFolder . "jquery.inc.php";
         include_jQueryPlugin($name, $path);
+    }
+
+    /** @since 1.7 */
+    public function includeUi(): void
+    {
+        include_once $this->jqueryFolder . "jquery.inc.php";
+        include_jQueryUI();
     }
 }
