@@ -161,6 +161,12 @@ class Request
         return (int) $_SERVER["REQUEST_TIME"];
     }
 
+    /** @since 1.7 */
+    public function serverName(): string
+    {
+        return $_SERVER["SERVER_NAME"];
+    }
+
     /** @since 1.2 */
     public function remoteAddr(): string
     {
