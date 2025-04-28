@@ -29,10 +29,10 @@ namespace Plib;
  */
 final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByPhpDoc
 {
-    /** @var array{url:Url,header?:array<string,string>,get:array<string,mixed>,cookie?:array<string,mixed>,post?:array<string,mixed>,files?:array<string,UploadedFile>,time?:int,username?:string,admin?:bool,s?:int,selected:string,language?:string,edit?:bool} */
+    /** @var array{url:Url,header?:array<string,string>,get:array<string,mixed>,cookie?:array<string,mixed>,post?:array<string,mixed>,files?:array<string,UploadedFile>,time?:int,remoteAddr?:string,username?:string,admin?:bool,s?:int,selected:string,language?:string,edit?:bool} */
     private $opts;
 
-    /** @param array{header?:array<string,string>,url?:string,cookie?:array<string,mixed>,post?:array<string,mixed>,files?:array<string,UploadedFile>,time?:int,username?:string,admin?:bool,s?:int,language?:string,edit?:bool} $opts */
+    /** @param array{header?:array<string,string>,url?:string,cookie?:array<string,mixed>,post?:array<string,mixed>,files?:array<string,UploadedFile>,time?:int,remoteAddr?:string,username?:string,admin?:bool,s?:int,language?:string,edit?:bool} $opts */
     public function __construct(array $opts = [])
     {
         $url = $opts["url"] ?? "http://example.com/";
@@ -154,6 +154,12 @@ final class FakeRequest extends Request // @phpstan-ignore class.extendsFinalByP
     public function time(): int
     {
         return $this->opts["time"] ?? 1741617587;
+    }
+
+    /** @since 1.7 */
+    public function remoteAddr(): string
+    {
+        return $this->opts["remoteAddr"] ?? "127.0.0.1";
     }
 
     public function username(): ?string
