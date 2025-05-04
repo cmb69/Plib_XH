@@ -108,7 +108,7 @@ class View
      */
     public function esc($string): string
     {
-        return XH_hsc($string);
+        return XH_hsc((string) $string);
     }
 
     public function raw(string $string): string
