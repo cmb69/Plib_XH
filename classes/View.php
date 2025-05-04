@@ -102,7 +102,11 @@ class View
         return (string) ob_get_clean();
     }
 
-    public function esc(string $string): string
+    /**
+     * @param scalar $string
+     * @since 1.8 parameter has been widened to scalar
+     */
+    public function esc($string): string
     {
         return XH_hsc($string);
     }
