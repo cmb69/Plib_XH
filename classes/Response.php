@@ -44,6 +44,9 @@ final class Response
     /** @var string|null */
     private $title = null;
 
+    /** @var string|null */
+    private $description = null;
+
     /** @var array{string,string,int}|null */
     private $cookie = null;
 
@@ -124,6 +127,9 @@ final class Response
         if ($this->title() !== null) {
             $title = $this->title();
         }
+        if ($this->description !== null) {
+            $title = $this->description;
+        }
         if ($this->hjs !== null) {
             $hjs .= $this->hjs;
         }
@@ -137,6 +143,14 @@ final class Response
     {
         $that = clone $this;
         $that->title = $title;
+        return $that;
+    }
+
+    /** @since 1.8 */
+    public function withDescription(string $description): self
+    {
+        $that = clone $this;
+        $that->description = $description;
         return $that;
     }
 
@@ -209,6 +223,12 @@ final class Response
     public function title(): ?string
     {
         return $this->title;
+    }
+
+    /** @since 1.8 */
+    public function description(): ?string
+    {
+        return $this->description;
     }
 
     public function status(): int
