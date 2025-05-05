@@ -95,7 +95,7 @@ final class Response
     /** @return string|never */
     public function __invoke()
     {
-        global $title, $hjs, $bjs;
+        global $title, $hjs, $bjs, $tx;
 
         if ($this->status !== 200) {
             $this->purgeOutputBuffers();
@@ -128,7 +128,7 @@ final class Response
             $title = $this->title();
         }
         if ($this->description !== null) {
-            $title = $this->description;
+            $tx["meta"]["description"] = $this->description;
         }
         if ($this->hjs !== null) {
             $hjs .= $this->hjs;
@@ -225,7 +225,14 @@ final class Response
         return $this->title;
     }
 
-    /** @since 1.8 */
+    /**
+     * Changes $tx[meta][description]
+     *
+     * Must only be called, if there is no chance that the core language
+     * will be saved during the request.
+     *
+     * @since 1.8
+     */
     public function description(): ?string
     {
         return $this->description;
