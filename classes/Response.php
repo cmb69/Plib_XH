@@ -152,7 +152,14 @@ final class Response
         return $that;
     }
 
-    /** @since 1.8 */
+    /**
+     * Changes $tx[meta][description]
+     *
+     * Must only be called, if there is no chance that the core language
+     * will be saved during the request.
+     *
+     * @since 1.8
+     */
     public function withDescription(string $description): self
     {
         $that = clone $this;
@@ -219,7 +226,7 @@ final class Response
     /**
      * Adds the parameters to the canonical link of the page
      *
-     * A simple wrapper over the $CanonicalLinkInc API that is available
+     * A simple wrapper over the `$CanonicalLinkInc` API that is available
      * as of CMSimple_XH 1.8, and may need to be explicitly enabled in the
      * configuration.
      *
@@ -248,14 +255,7 @@ final class Response
         return $this->title;
     }
 
-    /**
-     * Changes $tx[meta][description]
-     *
-     * Must only be called, if there is no chance that the core language
-     * will be saved during the request.
-     *
-     * @since 1.8
-     */
+    /** @since 1.8 */
     public function description(): ?string
     {
         return $this->description;
