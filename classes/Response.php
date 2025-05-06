@@ -65,6 +65,9 @@ final class Response
     /** @var ?string */
     private $bjs = null;
 
+    /** @var ?list<string> */
+    private $canonicalParams = null;
+
     public static function create(string $output = ""): self
     {
         $that = new self();
@@ -95,7 +98,7 @@ final class Response
     /** @return string|never */
     public function __invoke()
     {
-        global $title, $hjs, $bjs, $tx;
+        global $title, $hjs, $bjs, $tx, $CanonicalLinkInc;
 
         if ($this->status !== 200) {
             $this->purgeOutputBuffers();
@@ -135,6 +138,9 @@ final class Response
         }
         if ($this->bjs !== null) {
             $bjs .= $this->bjs;
+        }
+        if ($this->canonicalParams !== null && is_array($CanonicalLinkInc)) {
+            array_push($CanonicalLinkInc, ...$this->canonicalParams);
         }
         return $this->output();
     }
@@ -210,6 +216,23 @@ final class Response
         return $that;
     }
 
+    /**
+     * Adds the parameters to the canonical link of the page
+     *
+     * A simple wrapper over the $CanonicalLinkInc API that is available
+     * as of CMSimple_XH 1.8, and may need to be explicitly enabled in the
+     * configuration.
+     *
+     * @param list<string> $params
+     * @since 1.8
+     */
+    public function withCanonicalParams(array $params): self
+    {
+        $that = clone $this;
+        $that->canonicalParams = $params;
+        return $that;
+    }
+
     public function output(): string
     {
         return $this->output;
@@ -274,6 +297,15 @@ final class Response
     public function bjs(): ?string
     {
         return $this->bjs;
+    }
+
+    /**
+     * @return ?list<string>
+     * @since 1.8
+     */
+    public function canonicalParams(): ?array
+    {
+        return $this->canonicalParams;
     }
 
     /** @return void */
