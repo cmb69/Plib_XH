@@ -138,7 +138,7 @@ class DocumentStore2
      *
      * The `$key` file is opened for reading, locked for shared access,
      * its contents are read, and then the file is unlocked and closed.
-     * Returns `null` if the file cannot be read; otherwise the contents 
+     * Returns `null` if the file cannot be read; otherwise the contents
      * are passed to `$class`'s {@see Document2::fromString()},
      * whose returned value is then returned from this method.
      *
