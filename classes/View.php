@@ -85,6 +85,37 @@ class View
     }
 
     /**
+     * Renders a boolean selected attribute
+     *
+     * The attribute is set if `$current` is (in) `$selected`.
+     *
+     * @param string|list<string> $selected
+     * @since 1.10
+     */
+    public function selected(string $current, $selected): string
+    {
+        $is = is_string($selected) ? $current === $selected : in_array($current, $selected, true);
+        return $is ? "selected" : "";
+    }
+
+    /**
+     * Renders a boolean checked attribute
+     *
+     * The attribute is set if `$current` is `true` or is (in) `$checked`.
+     *
+     * @param string|bool $current
+     * @param string|list<string> $checked
+     * @since 1.10
+     */
+    public function checked($current, $checked = []): string
+    {
+        $is = is_bool($current)
+            ? $current
+            : (is_string($checked) ? $current === $checked : in_array($current, $checked, true));
+        return $is ? "checked" : "";
+    }
+
+    /**
      * @param mixed $value
      * @since 1.1
      */
