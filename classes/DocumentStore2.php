@@ -222,12 +222,14 @@ class DocumentStore2
     {
         foreach (array_reverse($this->open) as $key => [$stream, $document]) {
             $contents = $document->toString();
-            rewind($stream);
-            if (($length = @fwrite($stream, $contents)) !== strlen($contents)) {
-                $this->rollback();
-                return false;
+            if ($contents !== null) {
+                rewind($stream);
+                if (($length = @fwrite($stream, $contents)) !== strlen($contents)) {
+                    $this->rollback();
+                    return false;
+                }
+                ftruncate($stream, $length);
             }
-            ftruncate($stream, $length);
             flock($stream, LOCK_UN);
             fclose($stream);
             unset($this->open[$key]);
