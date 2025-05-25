@@ -35,7 +35,7 @@ interface Document2
      * This method is called from {@see DocumentStore2::create()},
      * and should create and return a new model object with reasonable defaults.
      *
-     * @return ?static
+     * @return static
      */
     public static function new(string $key);
 

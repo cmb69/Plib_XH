@@ -118,18 +118,12 @@ class DocumentStore2
         }
         $filename = $this->folder() . $key;
         $stream = @fopen($filename, "x");
-        if ($stream !== false) {
-            flock($stream, LOCK_EX);
+        if ($stream === false) {
+            return null;
         }
+        flock($stream, LOCK_EX);
         $document = $class::new($key);
-        if ($stream) {
-            if ($document === null) {
-                flock($stream, LOCK_UN);
-                fclose($stream);
-            } else {
-                $this->open[$key] = [$stream, $document];
-            }
-        }
+        $this->open[$key] = [$stream, $document];
         return $document;
     }
 
