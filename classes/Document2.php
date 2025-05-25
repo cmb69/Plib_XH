@@ -58,7 +58,10 @@ interface Document2
      *
      * This is method is called from {@see DocumentStore2::commit()},
      * and should return a string which could be passed to
-     * {@see Document::fromString()} yielding an equal object.
+     * {@see Document2::fromString()} yielding an equal object.
+     * If serialization to a string is not possible for whatever reason,
+     * the method should return `null`, so nothing will be written to the
+     * file, and {@see DocumentStore2::commit()} will return `false`.
      */
-    public function toString(): string;
+    public function toString(): ?string;
 }
