@@ -84,6 +84,12 @@ class View
         return sprintf($this->text[$key], ...$args);
     }
 
+    /** @since 1.10 */
+    public function date(string $key, int $timestamp): string
+    {
+        return $this->esc(date($key, $timestamp));
+    }
+
     /**
      * Renders a boolean selected attribute
      *
