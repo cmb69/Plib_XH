@@ -87,7 +87,7 @@ class View
     /** @since 1.10 */
     public function date(string $key, int $timestamp): string
     {
-        return $this->esc(date($key, $timestamp));
+        return $this->esc(date($this->text[$key], $timestamp));
     }
 
     /**
