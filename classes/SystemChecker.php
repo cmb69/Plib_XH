@@ -38,13 +38,13 @@ class SystemChecker
         return extension_loaded($extension);
     }
 
-    /** @deprecated since 1.11 Use ::checkGdFeature("FreeType") instead. */
+    /** @deprecated Use {@see SystemChecker::checkGdFeature()} instead. */
     public function checkGdFreetype(): bool
     {
         return $this->checkGdFeature("FreeType");
     }
 
-    /** @deprecated since 1.11 Use ::checkGdFeature("PNG") instead. */
+    /** @deprecated Use {@see SystemChecker::checkGdFeature()} instead. */
     public function checkGdPng(): bool
     {
         return $this->checkGdFeature("PNG");
@@ -53,8 +53,9 @@ class SystemChecker
     /**
      * Wraps the most relevant features reported by gd_info()
      *
-     * `$feature` is either `FreeType`, `GIF Read`, `GIF Create`, `JPEG`, `PNG`,
-     * `WBMP`, `XPM`, `XBM`, `WebP`, `BMP`, `TGA Read` or `AVIF`.
+     * @param string $feature either `FreeType`, `GIF Read`, `GIF Create`,
+     *                        `JPEG`, `PNG`, `WBMP`, `XPM`, `XBM`, `WebP`,
+     *                        `BMP`, `TGA Read` or `AVIF`.
      *
      * @since 1.11
      */
