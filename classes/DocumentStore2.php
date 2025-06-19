@@ -233,6 +233,9 @@ class DocumentStore2
             flock($stream, LOCK_UN);
             fclose($stream);
             unset($this->open[$key]);
+            if ($contents === null) {
+                return false;
+            }
         }
         return true;
     }
