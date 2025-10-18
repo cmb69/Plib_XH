@@ -2,6 +2,8 @@
 
 <project name="Plib" default="help">
 
+  <property name="dir" value="${project.basedir}"/>
+
   <target name="help" description="lists available targets">
     <exec executable="phing" outputProperty="help">
       <arg value="-l"/>
@@ -28,11 +30,23 @@
     <exec executable="phpunit" passthru="true" checkreturn="true"/>
   </target>
 
-  <target name="check" description="runs all checks" depends="sniff,stan,test"/>
+  <target name="js" description="formats JavaScript">
+    <exec executable="prettier" passthru="true" checkreturn="true">
+      <arg line="--write --print-width 100 --tab-width 4 --trailing-comma es5 js/*.js"/>
+    </exec>
+  </target>
+
+  <target name="check" description="runs all checks" depends="sniff,stan,test,js"/>
 
   <target name="coverage" description="generates coverage report">
     <exec executable="phpunit" passthru="true" checkreturn="true">
       <arg line="--coverage-html coverage"/>
+    </exec>
+  </target>
+
+  <target name="minify" description="minifies JS">
+    <exec executable="uglifyjs" checkreturn="true" dir="${dir}">
+      <arg line="js/polyfills.js --no-module --compress --mangle --output js/polyfills.min.js"/>
     </exec>
   </target>
 
@@ -57,6 +71,9 @@
     </exec>
     <unzip file="export.zip" todir="export"/>
     <delete file="export.zip"/>
+    <phingcall target="minify">
+      <property name="dir" value="export/"/>
+    </phingcall>
     <move todir="dist">
       <fileset dir="export">
         <exclude name=".github/**"/>

@@ -24,6 +24,11 @@ namespace Plib;
 /**
  * Utility for including JavaScript
  *
+ * When targeting modern browsers only, this class is not useful.  Instead
+ * scripts can be included as `<script type="module">` what is preferable.
+ * This class is only useful, if support for somewhat older browsers is still
+ * desired or even required.
+ *
  * @final
  * @since 1.12
  */
@@ -31,6 +36,19 @@ class JavaScript
 {
     /** @var array<string,true> */
     private static $includedScripts = [];
+
+    /**
+     * Includes polyfills for a few browser APIs
+     *
+     * These are just filling some most basic needs, and are supposed to always
+     * fit in a small amount of JavaScript (certainly less than dozens or even
+     * hundreds of KB); currently about 0.5 KB minified.
+     */
+    public function includePolyfills(): void
+    {
+        global $pth;
+        $this->include($pth["folder"]["plugins"] . "plib/js/polyfills");
+    }
 
     /**
      * Loads the given local script
